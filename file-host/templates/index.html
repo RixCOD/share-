@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Host</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">
+            📂 Local File Server
+        </h1>
+
+        <div class="bg-white shadow-lg rounded-xl p-6">
+            <table class="w-full table-auto">
+                <thead>
+                    <tr class="bg-gray-200 text-left">
+                        <th class="p-3">File Name</th>
+                        <th class="p-3">Type</th>
+                        <th class="p-3">Size (Bytes)</th>
+                        <th class="p-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 font-medium">{{ file.name }}</td>
+                        <td class="p-3">
+                            {% if file.is_dir %}
+                                📁 Folder
+                            {% else %}
+                                📄 File
+                            {% endif %}
+                        </td>
+                        <td class="p-3">{{ file.size }}</td>
+                        <td class="p-3">
+                            {% if not file.is_dir %}
+                            <a href="/download/{{ file.name }}" 
+                               class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition">
+                               Download
+                            </a>
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p class="text-center text-gray-500 mt-6">
+            Running on http://localhost:5000
+            </br>
+            Share your Files Seamlessly
+        </p>
+    </div>
+
+</body>
+</html>
